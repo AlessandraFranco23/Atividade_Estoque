@@ -6,7 +6,7 @@ namespace Models
         public string Nome {get;set;}
         public double Preco {get; set;}
 
-        public Produto(string Nome, double Preco)
+        public Produto(string nome, double preco)
         {
             Nome = nome;
             Preco = Preco;

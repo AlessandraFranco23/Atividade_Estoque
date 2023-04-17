@@ -7,7 +7,7 @@ namespace Models
     public class Context
     {
 
-        public List<Produto> Produtos;
+        public List<Produto> Produtos = new List<Produto>();
         
     }
 
