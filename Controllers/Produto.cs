@@ -17,8 +17,8 @@ namespace Controllers
         {
             Models.Produto produto = new Models.Produto(nome, preco);
 
-            Context.Produto.Add(produto);
-            Context.SaveChanges();
+            Context.Produtos.Add(produto);
+            // Context.SaveChanges();
         }
 
         public void Alterar(int id, string nome,double preco)
@@ -30,7 +30,7 @@ namespace Controllers
 
             produto.Nome = nome;
             produto.Preco = preco;
-            Context.SaveChanges();
+            // Context.SaveChanges();
 
         }
 
@@ -41,7 +41,7 @@ namespace Controllers
             if (produto == null)
                 throw new Exception("Produto não encontrado");
 
-            Context.Remove(produto);
+            Context.Produtos.Remove(produto);
         }
 
         public List<Models.Produto> Listar()
