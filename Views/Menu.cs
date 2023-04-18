@@ -16,21 +16,30 @@ namespace Views
 
         produto.Text = "Produto";
         produto.Name = "Produto";
-        produto.Location = new Point(110, 120);  
+        produto.Location = new Point(75, 120);  
         produto.Height = 40;  
         produto.Width = 300;  
         produto.Click += new EventHandler(Produto_Click); 
+
+        sair.Text = "Sair";
+        sair.Name = "Sair";
+        sair.Location = new Point(75, 240);  
+        sair.Height = 40;  
+        sair.Width = 300;  
+        sair.Click  += new EventHandler(Sair_Click); 
         
         Controls.Add(produto);
-        // Controls.Add(cancelButton);
-
+        Controls.Add(sair);
 
     }
-    
-
     public void Produto_Click(object sender, EventArgs e) {
-        Lista f3 = new Lista(); // Instantiate a Form3 object.
-        f3.Show(); // Show Form3 and
-        // this.Close(); // closes the Form2 instance.
-    }}
+        Lista f3 = new Lista();
+        f3.FormLayout();
+        f3.Show();
+    }
+     private void Sair_Click(object sender, EventArgs e)  
+    {    
+        this.Close();  
+    }
+  }
 }
