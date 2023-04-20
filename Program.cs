@@ -1,6 +1,6 @@
 using Views;
 
-namespace Projeto_Estoque;
+namespace Projeto_Estoque {
 
 static class Program
 {
@@ -18,4 +18,5 @@ static class Program
         form.FormLayout();
         Application.Run(form);
     }    
+}
 }

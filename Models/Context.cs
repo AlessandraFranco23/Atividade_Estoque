@@ -14,7 +14,11 @@ namespace Models
     // public class Context: DbContext
     // {
 
-    //     public DbSet<Produto> Produtos;
+    //     public DbSet<Produto> Produtos {get; set;}
         
+    //         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //     {
+    //         optionsBuilder.UseMySql("Server=localhost;DataBase=Controle;Uid=root;Pwd=", options => options.EnableRetryOnFailure());
+    //     }
     // }
 }

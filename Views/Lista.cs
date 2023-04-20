@@ -8,7 +8,14 @@ namespace Views
         Button Voltar = new Button();
 
         private DataGridView GridView = new DataGridView();
-        private Controllers.Produto controller = new Controllers.Produto(new Models.Context());
+        private Controllers.Produto controller;
+        private Models.Context context;
+
+        public Lista(Models.Context context)
+        {
+            this.context = context;
+            controller = new Controllers.Produto(context);
+        }
 
         public void FormLayout()
         {
@@ -127,9 +134,15 @@ namespace Views
 
         }
         private void Excluir_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Deseja realmente excluir?");
-
+        { 
+            if (MessageBox.Show("Deseja realmente excluir?", "Excluir", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {   
+                DataGridViewRow row = this.GridView.SelectedRows[0];
+                string id = (string)row.Cells["Id"].Value;
+                controller.Excluir(Int32.Parse(id));
+                this.Refresh();
+            }
+            
         }
         private void Voltar_Click(object sender, EventArgs e)
         {

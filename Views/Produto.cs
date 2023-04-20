@@ -10,6 +10,7 @@ namespace Views
         TextBox precoProduto = new TextBox();
         Controllers.Produto Controller;
         private readonly Lista Lista;
+        private Models.Produto produto;
         public Produto(Controllers.Produto controller, Lista lista)
         {
             Controller = controller;
@@ -27,12 +28,12 @@ namespace Views
             nomeProdutoLabel.Text = "Nome:";
             nomeProdutoLabel.Location = new Point(10, 10);
 
-            nomeProduto.Location = new Point(100, 10);
+            nomeProduto.Location = new Point(110, 10);
 
             precoProdutoLabel.Text = "Preço:";
             precoProdutoLabel.Location = new Point(10, 50);
 
-            precoProduto.Location = new Point(100, 50);
+            precoProduto.Location = new Point(110, 50);
 
             confirmar.Text = "Confirmar";
             confirmar.Name = "Confirmar";
@@ -59,7 +60,7 @@ namespace Views
 
         public void Alterar(int id)
         {
-            Models.Produto produto = Controller.GetById(id);
+            produto = Controller.GetById(id);
 
             if (produto != null)
             {
@@ -70,7 +71,15 @@ namespace Views
 
         public void Confirmar_Click(object sender, EventArgs e)
         {
-            Controller.Criar(nomeProduto.Text, double.Parse(precoProduto.Text));
+            if (produto == null)
+            {
+                Controller.Criar(nomeProduto.Text, double.Parse(precoProduto.Text));
+            }
+            else
+            {
+                Controller.Alterar(produto.Id, nomeProduto.Text, double.Parse(precoProduto.Text));
+            }
+
             Lista.Refresh();
             this.Close();
         }
