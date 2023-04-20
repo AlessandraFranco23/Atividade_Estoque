@@ -11,5 +11,10 @@ namespace Models
             Nome = nome;
             Preco = Preco;
         }
+        
+        public string[] toRow() {
+            string[] row = { Id.ToString(), Nome, Preco.ToString()};
+            return row;
+        }
     }
 }

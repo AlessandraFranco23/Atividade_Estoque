@@ -16,7 +16,7 @@ namespace Controllers
         public void Criar(string nome, double preco)
         {
             Models.Produto produto = new Models.Produto(nome, preco);
-
+            Console.WriteLine(produto.Nome);
             Context.Produtos.Add(produto);
             // Context.SaveChanges();
         }
