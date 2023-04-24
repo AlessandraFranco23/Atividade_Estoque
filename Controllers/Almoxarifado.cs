@@ -6,49 +6,53 @@ namespace Controllers
 {
     public class Almoxarifado
     {
-        private Context Context;
-
-        public Almoxarifado(Context context)
-        {
-            Context = context;
-        }
-
         public void Criar(string nome)
         {
-            Models.Almoxarifado almoxarifado = new Models.Almoxarifado((Context.Almoxarifados.Count + 1), nome);
-            Context.Almoxarifados.Add(almoxarifado);
-            // Context.SaveChanges();
+            using var context = new Models.Context();
+
+            Models.Almoxarifado almoxarifado = new Models.Almoxarifado( nome);
+            context.Almoxarifados.Add(almoxarifado);
+            context.SaveChanges();
         }
 
         public void Alterar(int id, string nome)
         {
-            Models.Almoxarifado almoxarifado = Context.Almoxarifados.Where(almoxarifado => almoxarifado.Id.Equals(id)).FirstOrDefault();
+            using var context = new Models.Context();
+
+            Models.Almoxarifado almoxarifado = context.Almoxarifados.Where(almoxarifado => almoxarifado.Id.Equals(id)).FirstOrDefault();
 
             if (almoxarifado == null)
                 throw new Exception("Almoxarifado não encontrado");
 
             almoxarifado.Nome = nome;
-            // Context.SaveChanges();
+            context.SaveChanges();
 
         }
 
         public void Excluir(int id)
         {
-            Models.Almoxarifado almoxarifado = Context.Almoxarifados.Where(almoxarifado => almoxarifado.Id.Equals(id)).FirstOrDefault();
+            using var context = new Models.Context();
+
+            Models.Almoxarifado almoxarifado = context.Almoxarifados.Where(almoxarifado => almoxarifado.Id.Equals(id)).FirstOrDefault();
 
             if (almoxarifado == null)
                 throw new Exception("Almoxarifado não encontrado");
 
-            Context.Almoxarifados.Remove(almoxarifado);
+            context.Almoxarifados.Remove(almoxarifado);
+             context.SaveChanges();
         }
 
         public List<Models.Almoxarifado> Listar()
         {
-            return Context.Almoxarifados.ToList();
+            using var context = new Models.Context();
+
+            return context.Almoxarifados.ToList();
         }
 
         public Models.Almoxarifado GetById(int id) {
-            return Context.Almoxarifados.Where(almoxarifado => almoxarifado.Id.Equals(id)).FirstOrDefault();
+            using var context = new Models.Context();
+
+            return context.Almoxarifados.Where(almoxarifado => almoxarifado.Id.Equals(id)).FirstOrDefault();
         }
     }
 }

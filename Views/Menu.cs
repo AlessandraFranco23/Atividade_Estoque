@@ -8,7 +8,8 @@ namespace Views
         Button sair = new Button();
         Button almoxarifado = new Button();
         Button saldo = new Button();
-        Models.Context context = new Models.Context();
+
+        // Models.Context context = new Models.Context();
 
 
         public void FormLayout()
@@ -37,7 +38,7 @@ namespace Views
             saldo.Location = new Point(75, 200);
             saldo.Height = 40;
             saldo.Width = 300;
-            saldo.Click += new EventHandler(Saldo_Click); 
+            saldo.Click += new EventHandler(Saldo_Click);
 
             sair.Text = "Sair";
             sair.Name = "Sair";
@@ -54,18 +55,24 @@ namespace Views
         }
         public void Produto_Click(object sender, EventArgs e)
         {
+            using var context = new Models.Context();
+
             Lista f3 = new Lista(context);
             f3.FormLayout();
             f3.Show();
         }
         public void Almoxarifado_Click(object sender, EventArgs e)
         {
+            using var context = new Models.Context();
+
             ListaAlmoxarifado f6 = new ListaAlmoxarifado(context);
             f6.FormLayout();
             f6.Show();
         }
         public void Saldo_Click(object sender, EventArgs e)
         {
+            using var context = new Models.Context();
+
             ListaSaldo f7 = new ListaSaldo(context);
             f7.FormLayout();
             f7.Show();

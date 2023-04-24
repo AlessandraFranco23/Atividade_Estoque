@@ -28,6 +28,11 @@ namespace Models
             Nome = nome;
             Preco = preco;
         }
+
+        public Produto()
+        {
+        }
+
         public string[] toRow()
         {
             string[] row = { Id.ToString(), Nome, Preco.ToString() };

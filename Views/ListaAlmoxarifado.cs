@@ -14,7 +14,7 @@ namespace Views
         public ListaAlmoxarifado(Models.Context context)
         {
             this.context = context;
-            controller = new Controllers.Almoxarifado(context);
+            controller = new Controllers.Almoxarifado();
         }
 
         public void FormLayout()

@@ -75,8 +75,8 @@ namespace Views
 
             if (saldo != null)
             {
-                idProduto.Text = saldo.ProdutoId.ToString();
-                idAlmoxarifado.Text = saldo.AlmoxarifadoId.ToString();
+                idProduto.Text = saldo.Produto.Id.ToString();
+                idAlmoxarifado.Text = saldo.Almoxarifado.Id.ToString();
                 quantidade.Text = saldo.Quantidade.ToString();
             }
         }

@@ -14,7 +14,7 @@ namespace Views
         public Lista(Models.Context context)
         {
             this.context = context;
-            controller = new Controllers.Produto(context);
+            controller = new Controllers.Produto();
         }
 
         public void FormLayout()

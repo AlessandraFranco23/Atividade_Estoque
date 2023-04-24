@@ -23,6 +23,11 @@ namespace Models
             Id = id;
             Nome = nome;
         }
+
+        public Almoxarifado()
+        {
+        }
+
         public string[] toRow()
         {
             string[] row = { Id.ToString(), Nome };

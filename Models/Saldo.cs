@@ -9,38 +9,35 @@ namespace Models
         [Column("id")]
         [Key]
         public int Id { get; set; }
-        
-        public Produto Produto {get; set;}
 
-        [Column("produto_id")]
-        public int ProdutoId { get; set; }
+        public Produto Produto { get; set; }
 
-        public Almoxarifado Almoxarifado {get;set;}
-
-        [Column("almoxarifado_id")]
-        public int AlmoxarifadoId { get; set; }
+        public Almoxarifado Almoxarifado { get; set; }
 
         [Column("quantidade")]
         public int Quantidade { get; set; }
 
+
+
         public Saldo(Produto produto, Almoxarifado almoxarifado, int quantidade)
         {
             Produto = produto;
-            ProdutoId = produto.Id;
             Almoxarifado = almoxarifado;
-            AlmoxarifadoId = almoxarifado.Id;
             Quantidade = quantidade;
         }
 
-        public Saldo(int id, Produto produto, Almoxarifado almoxarifado, int quantidade )
+        public Saldo(int id, Produto produto, Almoxarifado almoxarifado, int quantidade)
         {
             Id = id;
-           Produto = produto;
-            ProdutoId = produto.Id;
+            Produto = produto;
             Almoxarifado = almoxarifado;
-            AlmoxarifadoId = almoxarifado.Id;
             Quantidade = quantidade;
         }
+
+        public Saldo()
+        {
+        }
+
         public string[] toRow()
         {
             string[] row = { Id.ToString(), Produto.Nome.ToString(), Almoxarifado.Nome.ToString(), Quantidade.ToString() };

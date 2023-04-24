@@ -14,7 +14,7 @@ namespace Views
         public ListaSaldo(Models.Context context)
         {
             this.context = context;
-            controller = new Controllers.Saldo(context);
+            controller = new Controllers.Saldo();
         }
 
         public void FormLayout()

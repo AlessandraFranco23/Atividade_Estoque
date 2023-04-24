@@ -6,50 +6,55 @@ namespace Controllers
 {
     public class Produto
     {
-        private Context Context;
-
-        public Produto(Context context)
-        {
-            Context = context;
-        }
-
         public void Criar(string nome, double preco)
         {
-            Models.Produto produto = new Models.Produto((Context.Produtos.Count + 1),nome, preco);
-            Context.Produtos.Add(produto);
-            // Context.SaveChanges();
+            using var context = new Models.Context();
+
+            Models.Produto produto = new Models.Produto(nome, preco);
+            context.Produtos.Add(produto);
+            context.SaveChanges();
         }
 
-        public void Alterar(int id, string nome,double preco)
+        public void Alterar(int id, string nome, double preco)
         {
-            Models.Produto produto = Context.Produtos.Where(produto => produto.Id.Equals(id)).FirstOrDefault();
+            using var context = new Models.Context();
+
+            Models.Produto produto = context.Produtos.Where(produto => produto.Id.Equals(id)).FirstOrDefault();
 
             if (produto == null)
                 throw new Exception("Produto não encontrado");
 
             produto.Nome = nome;
             produto.Preco = preco;
-            // Context.SaveChanges();
+            context.SaveChanges();
 
         }
 
         public void Excluir(int id)
         {
-            Models.Produto produto = Context.Produtos.Where(produto => produto.Id.Equals(id)).FirstOrDefault();
+            using var context = new Models.Context();
+
+            Models.Produto produto = context.Produtos.Where(produto => produto.Id.Equals(id)).FirstOrDefault();
 
             if (produto == null)
                 throw new Exception("Produto não encontrado");
 
-            Context.Produtos.Remove(produto);
+            context.Produtos.Remove(produto);
+            context.SaveChanges();
         }
 
         public List<Models.Produto> Listar()
         {
-            return Context.Produtos.ToList();
+            using var context = new Models.Context();
+
+            return context.Produtos.ToList();
         }
 
-        public Models.Produto GetById(int id) {
-            return Context.Produtos.Where(produto => produto.Id.Equals(id)).FirstOrDefault();
+        public Models.Produto GetById(int id)
+        {
+            using var context = new Models.Context();
+
+            return context.Produtos.Where(produto => produto.Id.Equals(id)).FirstOrDefault();
         }
     }
 }
