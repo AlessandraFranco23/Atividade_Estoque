@@ -8,6 +8,8 @@ namespace Models
     {
 
         public List<Produto> Produtos = new List<Produto>();
+        public List<Almoxarifado> Almoxarifados = new List<Almoxarifado>();
+        public List<Saldo> Saldos = new List<Saldo>();
         
     }
 
