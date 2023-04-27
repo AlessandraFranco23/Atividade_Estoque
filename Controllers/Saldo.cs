@@ -82,6 +82,20 @@ namespace Controllers
             return context.Saldos.Include(p => p.Produto).Include(p => p.Almoxarifado).ToList();
         }
 
+         public List<Models.Produto> ListarProduto()
+        {
+            using var context = new Models.Context();
+
+            return context.Produtos.ToList();
+        }
+
+         public List<Models.Almoxarifado> ListarAlmoxarifado()
+        {
+            using var context = new Models.Context();
+
+            return context.Almoxarifados.ToList();
+        }
+
             public Models.Saldo GetById(int id)
         {
             using var context = new Models.Context();

@@ -35,7 +35,7 @@ namespace Models
 
         public string[] toRow()
         {
-            string[] row = { Id.ToString(), Nome, Preco.ToString() };
+            string[] row = { Id.ToString(), Nome, String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", Preco) };
             return row;
         }
     }

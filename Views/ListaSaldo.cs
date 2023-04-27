@@ -57,11 +57,7 @@ namespace Views
             Controls.Add(excluir);
             Controls.Add(Voltar);
             SetupDataGridView();
-            foreach (var item in controller.Listar().Select(p => p.toRow()))
-            {
-                GridView.Rows.Add(item);
-            }
-
+            Refresh();
         }
 
 
@@ -69,7 +65,7 @@ namespace Views
         {
             this.Controls.Add(GridView);
 
-            GridView.ColumnCount = 4;
+            GridView.ColumnCount = 5;
 
             GridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             GridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -91,6 +87,7 @@ namespace Views
             GridView.Columns[1].Name = "Produto";
             GridView.Columns[2].Name = "Almoxarifado";
             GridView.Columns[3].Name = "Quantidade";
+            GridView.Columns[4].Name = "Total";
 
             GridView.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
@@ -105,7 +102,7 @@ namespace Views
         public void Refresh()
         {
             GridView.Rows.Clear();
-            foreach (var item in controller.Listar().Select(p => p.toRow()))
+            foreach (var item in controller.Listar().Select(p => Models.SaldoListView.from(p).toRow()))
             {
                 GridView.Rows.Add(item);
             }

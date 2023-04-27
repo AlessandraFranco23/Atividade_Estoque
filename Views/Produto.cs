@@ -34,7 +34,12 @@ namespace Views
             precoProdutoLabel.Location = new Point(10, 50);
 
             precoProduto.Location = new Point(110, 50);
-
+            precoProduto.Leave += new EventHandler(PrecoProduto_Leave);
+            precoProduto.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", 0);
+            precoProduto.GotFocus += new EventHandler((object sender, EventArgs e) =>
+            {
+                precoProduto.Text = "";
+            });
             confirmar.Text = "Confirmar";
             confirmar.Name = "Confirmar";
             confirmar.Location = new Point(225, 325);
@@ -80,12 +85,23 @@ namespace Views
                 Controller.Alterar(produto.Id, nomeProduto.Text, double.Parse(precoProduto.Text));
             }
 
+            MessageBox.Show("Cadastrado com sucesso!");
+
             Lista.Refresh();
             this.Close();
         }
         private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void PrecoProduto_Leave(object sender, EventArgs e)
+        {
+            Double value;
+            if (Double.TryParse(precoProduto.Text, out value))
+                precoProduto.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", value);
+            else
+                precoProduto.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", 0);
         }
     }
 }

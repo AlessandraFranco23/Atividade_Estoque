@@ -1,15 +1,16 @@
 namespace Views
 {
-    class Saldo: Form
+    class Saldo : Form
     {
         Button cancelar = new Button();
         Button confirmar = new Button();
         Label idProdutoLabel = new Label();
-        TextBox idProduto = new TextBox();
+        ComboBox comboBoxProduto = new ComboBox();
         Label idAlmoxarifadoLabel = new Label();
-        TextBox idAlmoxarifado = new TextBox();
+        ComboBox comboBoxAlmoxarifado = new ComboBox();
         Label quantidadeLabel = new Label();
         TextBox quantidade = new TextBox();
+
         public Controllers.Saldo Controller { get; }
         public ListaSaldo ListaSaldo { get; }
         private Models.Saldo saldo;
@@ -20,7 +21,6 @@ namespace Views
             ListaSaldo = listaSaldo;
         }
 
-
         public void FormLayout()
         {
             this.Name = "SALDO";
@@ -28,16 +28,24 @@ namespace Views
             this.Size = new Size(450, 450);
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            idProdutoLabel.Text = "Id do Produto:";
+            idProdutoLabel.Text = "Produto:";
             idProdutoLabel.Location = new Point(10, 10);
+            
+            comboBoxProduto.Location = new Point(110, 10);
+            comboBoxProduto.Size = new Size(100, 18);
+            comboBoxProduto.TabIndex = 0;
+            this.setComboBoxProduto();
+            comboBoxProduto.Text = "Produto";
 
-            idProduto.Location = new Point(110, 10);
-
-            idAlmoxarifadoLabel.Text = "Id do Almoxarifado:";
+            idAlmoxarifadoLabel.Text = "Almoxarifado:";
             idAlmoxarifadoLabel.Location = new Point(10, 50);
-            idAlmoxarifadoLabel.Size = new Size (100,50);
+            idAlmoxarifadoLabel.Size = new Size(100, 50);
 
-            idAlmoxarifado.Location = new Point(110, 50);
+            comboBoxAlmoxarifado.Location = new Point(110, 50);
+            comboBoxAlmoxarifado.Size = new Size(100, 18);
+            comboBoxAlmoxarifado.TabIndex = 0;
+            this.setComboBoxAlmoxarifado();
+            comboBoxAlmoxarifado.Text = "Almoxarifdo";
 
             quantidadeLabel.Text = "Quantidade:";
             quantidadeLabel.Location = new Point(10, 100);
@@ -58,13 +66,12 @@ namespace Views
             cancelar.Width = 100;
             cancelar.Click += new EventHandler(Cancelar_Click);
 
-
             Controls.Add(confirmar);
             Controls.Add(cancelar);
             Controls.Add(idProdutoLabel);
-            Controls.Add(idProduto);
+            Controls.Add(comboBoxProduto);
             Controls.Add(idAlmoxarifadoLabel);
-            Controls.Add(idAlmoxarifado);
+            Controls.Add(comboBoxAlmoxarifado);
             Controls.Add(quantidadeLabel);
             Controls.Add(quantidade);
         }
@@ -75,29 +82,63 @@ namespace Views
 
             if (saldo != null)
             {
-                idProduto.Text = saldo.Produto.Id.ToString();
-                idAlmoxarifado.Text = saldo.Almoxarifado.Id.ToString();
+                int res = comboBoxProduto.FindStringExact(saldo.Produto.Nome);
+                comboBoxProduto.SelectedIndex = res;
+
+                res = comboBoxAlmoxarifado.FindStringExact(saldo.Almoxarifado.Nome);
+                comboBoxAlmoxarifado.SelectedIndex = res;
+
                 quantidade.Text = saldo.Quantidade.ToString();
             }
         }
         public void Confirmar_Click(object sender, EventArgs e)
         {
+            Models.SaldoFormView produto = (comboBoxProduto.SelectedItem as Models.SaldoFormView);
+            Models.SaldoFormView almoxarifado = (comboBoxAlmoxarifado.SelectedItem as Models.SaldoFormView);
             if (saldo == null)
             {
-                try {
-                    Controller.Criar(Int32.Parse(idProduto.Text), Int32.Parse(idAlmoxarifado.Text), Int32.Parse(quantidade.Text));
-                } catch (Exception exp) {
+                try
+                {
+                    Controller.Criar(produto.Id, almoxarifado.Id, Int32.Parse(quantidade.Text));
+                }
+                catch (Exception exp)
+                {
                     MessageBox.Show(exp.Message);
                 }
             }
             else
             {
-                Controller.Alterar(saldo.Id, Int32.Parse(idProduto.Text), Int32.Parse(idAlmoxarifado.Text), Int32.Parse(quantidade.Text));
+                Controller.Alterar(saldo.Id, produto.Id, almoxarifado.Id, Int32.Parse(quantidade.Text));
             }
+
+            MessageBox.Show("Cadastrado com sucesso!");
 
             ListaSaldo.Refresh();
             this.Close();
         }
+
+        private void setComboBoxProduto()
+        {
+
+            comboBoxProduto.Items.Clear();
+            List<Models.SaldoFormView> listProduto = Controller.ListarProduto().Select(p => new Models.SaldoFormView(p.Id, p.Nome)).ToList();
+
+            listProduto.ForEach(produto =>
+            {
+                comboBoxProduto.Items.Add(produto);
+            });
+        }
+        private void setComboBoxAlmoxarifado()
+        {
+            comboBoxAlmoxarifado.Items.Clear();
+            List<Models.SaldoFormView> listAlmoxarifado = Controller.ListarAlmoxarifado().Select(p => new Models.SaldoFormView(p.Id, p.Nome)).ToList();;
+
+            listAlmoxarifado.ForEach(almoxarifado =>
+            {
+                comboBoxAlmoxarifado.Items.Add(almoxarifado);
+            });
+        }
+
         private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();

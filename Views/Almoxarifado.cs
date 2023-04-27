@@ -69,6 +69,8 @@ namespace Views
                 controller.Alterar(almoxarifado.Id, nomeAlmoxarifado.Text);
             }
 
+            MessageBox.Show("Cadastrado com sucesso!");
+
             listaAlmoxarifado.Refresh();
             this.Close();
         }
