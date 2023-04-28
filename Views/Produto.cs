@@ -78,11 +78,11 @@ namespace Views
         {
             if (produto == null)
             {
-                Controller.Criar(nomeProduto.Text, double.Parse(precoProduto.Text));
+                Controller.Criar(nomeProduto.Text, double.Parse(precoProduto.Text.Replace("R$","")));
             }
             else
             {
-                Controller.Alterar(produto.Id, nomeProduto.Text, double.Parse(precoProduto.Text));
+                Controller.Alterar(produto.Id, nomeProduto.Text, double.Parse(precoProduto.Text.Replace("R$","")));
             }
 
             MessageBox.Show("Cadastrado com sucesso!");
